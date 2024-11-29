@@ -22,13 +22,13 @@ Second, you can create a tests.yaml file which contains an array of test cases w
     treb7uchet
 - expected: 281
   part: 2
-  input_file: part2.txt #If the inline text is a problem due to size, formatting or escaping, you can set a relative path to a file here
+  input_file: part2.txt # If the inline text is a problem due to size, formatting or escaping, you can set a relative path to a file here
 ```
 
 Setup:
 The only setup which should be required is to save your AoC session token so that puzzle inputs can be dowloaded:
 
-1. 1. Log in to Advent of Code 
+1. Log in to Advent of Code 
 2. Right click the page and click "inspect"
 3. Navigate to the "Network" tab
 4. Click repoad
@@ -42,7 +42,7 @@ all				This will run all Day solutions defined in the project
 <day> [part]	You can also explicity specify a day number to run, along with an optional part (1 or 2) to run something other than the latest
 
 Configuration:
-App.config contains values and comments application configuration.
+App.config    contains application configuration.
 
 
 
