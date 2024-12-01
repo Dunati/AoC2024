@@ -10,16 +10,16 @@ class Day : BaseDay
         {
             return Part1(rawData);
         }
+        string[] lines = rawData.Lines().ToArray();
 
         var left = new int[100000];
         var right = new int[100000];
 
-        int index = 0;
-        foreach (var line in rawData.Lines())
-        {
-            var num = line.ToInts(10, "   ").ToArray();
+        for (int index = 0; index < lines.Length; index++)
+            {
+            var num = lines[index].ToInts(10, "   ").ToArray();
 
-            left[index++]=num[0];
+            left[index]=num[0];
             right[num[1]]++;
         }
 
@@ -35,21 +35,22 @@ class Day : BaseDay
 
     private static string Part1(string rawData)
     {
-        List<int> left = new List<int>();
-        List<int> right = new List<int>();
+        string[] lines = rawData.Lines().ToArray();
+        int[] left = new int[lines.Length];
+        int[] right = new int [lines.Length];
 
-        foreach (var line in rawData.Lines())
+        for (int index=0; index<lines.Length; index++)
         {
-            var num = line.ToInts(10, "   ").ToArray();
-            left.Add(num[0]);
-            right.Add(num[1]);
+            var num = lines[index].ToInts(10, "   ").ToArray();
+            left[index]=(num[0]);
+            right[index]=(num[1]);
         }
 
-        left.Sort();
-        right.Sort();
+        Array.Sort(left);
+        Array.Sort(right);
 
         int distance = 0;
-        for (int i = 0; i < left.Count; i++)
+        for (int i = 0; i < left.Length; i++)
         {
             distance += left[i] > right[i] ? left[i] - right[i] : right[i] - left[i]
 ;
