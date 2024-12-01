@@ -35,19 +35,25 @@ class Day : BaseDay
 
     private static string Part1(string rawData)
     {
+        Profiler profiler = new();
         string[] lines = rawData.Lines().ToArray();
+        profiler.EndRegion("to lines");
         int[] left = new int[lines.Length];
         int[] right = new int [lines.Length];
 
+        profiler.EndRegion("allocate arrays");
         for (int index=0; index<lines.Length; index++)
         {
             var num = lines[index].ToInts(10, "   ").ToArray();
             left[index]=(num[0]);
             right[index]=(num[1]);
         }
+        profiler.EndRegion("parse lines");
 
         Array.Sort(left);
         Array.Sort(right);
+
+        profiler.EndRegion("sort arrays");
 
         int distance = 0;
         for (int i = 0; i < left.Length; i++)
@@ -55,6 +61,9 @@ class Day : BaseDay
             distance += left[i] > right[i] ? left[i] - right[i] : right[i] - left[i]
 ;
         }
+        profiler.EndRegion("calculate distance");
+
+        profiler.Report();
         return distance.ToString();
     }
 }

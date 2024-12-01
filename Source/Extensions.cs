@@ -49,13 +49,22 @@
     }
 
 
-    public static IEnumerable<double> ToFloats(this string str, string separator = "\r\n")
+    public static IEnumerable<double> ToDoubles(this string str, string separator = "\r\n")
     {
         return str.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToDoubles(separator);
     }
     public static IEnumerable<double> ToDoubles(this IEnumerable<string> str, string separator = "\r\n")
     {
         return str.Select(x => Convert.ToDouble(x));
+    }
+
+    public static IEnumerable<Int16> ToShorts(this string str, int @base = 10, string separator = "\r\n")
+    {
+        return str.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToShorts(@base, separator);
+    }
+    public static IEnumerable<Int16> ToShorts(this IEnumerable<string> str, int @base = 10, string separator = "\r\n")
+    {
+        return str.Select(x => Convert.ToInt16(x, @base));
     }
 
     public static IEnumerable<int> ToInts(this string str, int @base = 10, string separator = "\r\n")

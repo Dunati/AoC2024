@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -37,7 +38,6 @@ public class BaseDay
     protected Stopwatch Stopwatch;
     public string Run(int part)
     {
-        Stopwatch = Stopwatch.StartNew();
         string partName = $"Source/Days/{Name}/input{part}.txt";
         if (!File.Exists(partName))
         {
@@ -48,13 +48,32 @@ public class BaseDay
                 return $"input {partName} not found";
             }
         }
-
+        double benchmark = double.Parse(ConfigurationManager.AppSettings["Benchmark"]);
         string result = "";
-        result = Run(part, File.ReadAllText(partName), false);
-        if (Stopwatch != null)
+        string rawData = File.ReadAllText(partName);
+        Stopwatch = Stopwatch.StartNew();
+        result = Run(part, rawData, false);
+        double elapsed = Stopwatch.Elapsed.TotalMilliseconds;
+        Trace.WriteLine($"\n  Solution: {elapsed}ms");
+        if (benchmark > elapsed)
         {
-            Trace.WriteLine($"\n  Solution: {Stopwatch.Elapsed.TotalMilliseconds}ms");
-            Stopwatch = null;
+            int warmup = (int)((benchmark*.1) / elapsed);
+            int iterations = (int)((benchmark * .9) / elapsed);
+            Trace.WriteLine($"  Benchmarking for {benchmark  }ms with warmup: {warmup} iterations: {iterations}");
+
+            if (warmup > 0)
+            {
+                for (int i = 0; i < warmup; i++)
+                {
+                    Run(part, rawData, false);
+                }
+            }
+            Stopwatch = Stopwatch.StartNew();
+            for (int i = 0; i < iterations; i++)
+            {
+                Run(part, rawData, false);
+            }
+            Trace.WriteLine($"  Benchmark:       {Stopwatch.Elapsed.TotalMilliseconds / iterations:0.000}ms");
         }
         return result;
     }
