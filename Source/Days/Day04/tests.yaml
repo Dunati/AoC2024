@@ -1,0 +1,34 @@
+﻿- expected: 4
+  part: 1
+  input_text: | 
+    ..X...
+    .SAMX.
+    .A..A.
+    XMAS.S
+    .X....
+- expected: 18
+  part: 1
+  input_text: | 
+    MMMSXXMASM
+    MSAMXMSMSA
+    AMXSXMAAMM
+    MSAMASMSMX
+    XMASAMXAMM
+    XXAMMXXAMA
+    SMSMSASXSS
+    SAXAMASAAA
+    MAMMMXMMMM
+    MXMXAXMASX
+- expected: 9
+  part: 2
+  input_text: | 
+    .M.S......
+    ..0..MSMS.
+    .M.S.M12..
+    ..3.4SMSM.
+    .M.S.M....
+    ..........
+    S.S.S.S.S.
+    .5.6.7.8..
+    M.M.M.M.M.
+    ..........
