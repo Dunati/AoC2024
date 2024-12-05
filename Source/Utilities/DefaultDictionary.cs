@@ -24,17 +24,21 @@ public class DefaultDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TV
         return value;
     }
 
+    public Func<TValue> Default { get; set; } = () => { return default(TValue); };
+
     public TValue this[TKey index]
     {
         get
         {
-            TValue value = default(TValue);
-            entries.TryGetValue(index, out value);
-            return value;
+            if (entries.TryGetValue(index, out var value))
+            {
+                return value;
+            }
+            return Default();
         }
         set
         {
-            if (value.Equals(default(TValue)))
+            if (value.Equals(Default()))
             {
                 entries.Remove(index);
             }
