@@ -20,7 +20,8 @@ class Day : BaseDay
                 string X = $"{rawData[i - (diagonal + 2)]}{rawData[i - diagonal]}{rawData[i + diagonal]}{rawData[i + (diagonal + 2)]}";
                 count += X switch
                 {
-                    "MMSS" => 1,
+                    "M"+"M"+
+                    "S"+"S" => 1,
                     "MSMS" => 1,
                     "SSMM" => 1,
                     "SMSM" => 1,

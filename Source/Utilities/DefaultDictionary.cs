@@ -1,6 +1,6 @@
 ﻿
 
-public class DefaultDictionary<TKey, TValue> :IEnumerable<KeyValuePair<TKey, TValue>>
+public class DefaultDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
 {
 
     public bool ContainsKey(TKey index)
@@ -12,6 +12,17 @@ public class DefaultDictionary<TKey, TValue> :IEnumerable<KeyValuePair<TKey, TVa
 
     public Dictionary<TKey, TValue>.KeyCollection Keys => entries.Keys;
 
+    public TValue Get(TKey index, Func<TValue> @default)
+    {
+        TValue value = default(TValue);
+        if (!entries.TryGetValue(index, out value))
+        {
+            value = @default();
+            entries[index] = value;
+        }
+
+        return value;
+    }
 
     public TValue this[TKey index]
     {
@@ -40,7 +51,7 @@ public class DefaultDictionary<TKey, TValue> :IEnumerable<KeyValuePair<TKey, TVa
     {
         var dict = new DefaultDictionary<TKey, TValue>();
 
-        dict.entries = entries.ToDictionary(x => x.Key, x=>x.Value );
+        dict.entries = entries.ToDictionary(x => x.Key, x => x.Value);
         return dict;
     }
 
