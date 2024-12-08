@@ -75,6 +75,15 @@
     {
         return str.Select(x => Convert.ToInt32(x, @base));
     }
+
+    public static IEnumerable<Int64> ToInt64s(this string str, int @base = 10, string separator = "\r\n")
+    {
+        return str.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToInt64s(@base, separator);
+    }
+    public static IEnumerable<Int64> ToInt64s(this IEnumerable<string> str, int @base = 10, string separator = "\r\n")
+    {
+        return str.Select(x => Convert.ToInt64(x, @base));
+    }
     public static IEnumerable<int> ToSortedInt(this string str, int @base = 10, string separator = "\r\n")
     {
         return str.ToInts(@base, separator).OrderBy(x => x).ToArray();

@@ -2,7 +2,6 @@
   "profiles": {
     "Runner": {
       "commandName": "Project",
-      "commandLineArgs": "6",
       "workingDirectory": "$(ProjectDir)"
     },
     "NewDay": {
