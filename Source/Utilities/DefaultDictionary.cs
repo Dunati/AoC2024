@@ -25,6 +25,7 @@ public class DefaultDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TV
     }
 
     public Func<TValue> Default { get; set; } = () => { return default(TValue); };
+    public bool InsertOnDefaultReference { get; set; } = false;
 
     public TValue this[TKey index]
     {
@@ -34,7 +35,12 @@ public class DefaultDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TV
             {
                 return value;
             }
-            return Default();
+            var new_value = Default();
+            if (InsertOnDefaultReference)
+            {
+                entries[index] = new_value;
+            }
+            return new_value;
         }
         set
         {
