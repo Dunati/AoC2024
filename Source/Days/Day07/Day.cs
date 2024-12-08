@@ -48,7 +48,20 @@ class Day : BaseDay
         {
             return false;
         }
-        return HasSolution(rest, long.Parse(value.ToString() + operands[0].ToString()), result, part);
+        long cat = operands[0];
+        if (cat < 10)
+        {
+            value = value * 10 + cat;
+        }
+        else if(cat < 100)
+        {
+            value = value * 100 + cat;
+        }
+        else
+        {
+            value = value * 1000 + cat;
+        }
+        return HasSolution(rest, value, result, part);
     }
     public override string Run(int part, string rawData)
     {
@@ -60,7 +73,7 @@ class Day : BaseDay
 
             long[] operands = line[(split + 2)..].AsSpan().ToLongs(separator: " ");
 
-            if (HasSolution(operands, 0, result, part))
+            if (HasSolution(operands[1..], operands[0], result, part))
             {
                 count += result;
             }
